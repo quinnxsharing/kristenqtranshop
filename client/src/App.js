@@ -9,12 +9,13 @@ import axios from "axios";
 import ProductDetail from './page/shop/productdetail';
 import CheckoutComponent from './page/orders/checkout';
 import ProductFilter from './page/shop/productfilter';
+import baseUrl from './baseUrl';
 
 function App(props) {
   const [productList, setProductList] = useState([]); 
     useEffect(() => {
         console.log("effect is being run");
-        axios.get("http://localhost:3001/products").then((response) => {
+        axios.get(`${baseUrl}/products`).then((response) => {
           console.log("we have a response", response.data);
           setProductList(response.data);
         });

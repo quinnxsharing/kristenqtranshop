@@ -1,13 +1,13 @@
 const express = require('express')
 const app= express()
 const fs = require('fs');
-const cors =require('cors')
+const cors =require('cors');
+const path = require('path');
+//const { request } = require('http');
+const port = process.env.PORT || 3001;
+
 app.use(express.json())
-app.use(
-    cors({
-        origin:"http://localhost:3000",
-    })
-);
+app.use(cors());
 
 app.get('/products',(request,response)=> {
     fs.readFile('./server/sampledata.json', (err, data) => {
@@ -160,7 +160,11 @@ app.post('/orders', (request, response) => {
     return maxOrderId + 1;
   }
   
-const PORT = 3001
-app.listen(PORT,()=>{
-    console.log(`Server running ${PORT}` );
+app.use(express.static("./client/build"));
+app.get("*", (req,res)=> {
+    res.sendFile(path.resolve(__dirname,"client","build","index.html"));
 });
+
+app.listen(port, () => {
+    console.log(`Server is running on post ${port}`);
+  });

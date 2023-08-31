@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./orders.css";
+import baseUrl from '../../baseUrl';
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -9,7 +10,7 @@ function Orders() {
   useEffect(() => {
     // Fetch orders from an API
     // modify later depend on the user session 
-    axios.get('http://localhost:3001/orders?user_id=1')
+    axios.get(`${baseUrl}/orders?user_id=1`)
       .then((response) => {
         setOrders(response.data);
         setLoading(false);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'; // Import React and other necessary dependencies
 import axios from 'axios';
+import baseUrl from '../../baseUrl';
 
 const User = () => {
   const [userID, setUserID] = useState(0); 
@@ -11,7 +12,7 @@ const User = () => {
     // Function to fetch the current user's session
     const fetchSession = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/session');
+        const response = await axios.get(`${baseUrl}/session`);
         const userId  = response.data.user_id; 
         fetchUserDetails(userId);
       } catch (error) {
@@ -22,7 +23,7 @@ const User = () => {
     // Function to fetch user details by ID
     const fetchUserDetails = async (userId) => {
       try {
-        const response = await axios.get(`http://localhost:3001/users/${userId}`);
+        const response = await axios.get(`${baseUrl}/users/${userId}`);
         const userDetails = response.data;
 
         // Now, you have the user's details, you can use them in your application
