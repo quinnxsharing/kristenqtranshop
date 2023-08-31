@@ -1,0 +1,36 @@
+Orders.css
+
+.orders-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .orders-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .order {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .order-label {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .order-items-list {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .order-item {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+  

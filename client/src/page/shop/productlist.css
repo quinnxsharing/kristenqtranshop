@@ -1,0 +1,132 @@
+.productList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+.product-link {
+  text-decoration: none; /* Remove underlines */
+  color: #333; /* Change text color to your desired color */
+  /* Add other styling as needed */
+}
+.shopTitle {
+  margin-top: 100px;
+  text-align: center;
+  font-size: 40px;
+}
+
+.product {
+  border-radius: 15px;
+  width: 300px;
+  height: 350px;
+  margin: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product img {
+  width: 400px;
+}
+
+.product .description {
+  text-align: center;
+}
+
+.product:hover {
+  transition: 0.3s ease-in;
+  cursor: pointer;
+}
+
+.addToCartBttn {
+  background-color: transparent;
+  border: 2px solid rgb(19, 19, 19);
+  min-width: 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 15px;
+}
+
+.addToCartBttn:hover {
+  background-color: rgb(19, 19, 19);
+  color: white;
+  cursor: pointer;
+}
+
+/* Filter Panel Container */
+.filter-panel {
+  position: relative;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-in-out;
+}
+
+/* Opened Filter Panel */
+.filter-panel.open {
+  max-height: 500px; /* Adjust the max height as needed */
+  transition: max-height 0.3s ease-in-out;
+}
+
+/* Filter Toggle Button */
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  color: #333;
+}
+
+/* Toggle Button Icon */
+.filter-toggle i {
+  font-size: 16px;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Opened Toggle Button Icon */
+.filter-toggle.open i {
+  transform: rotate(180deg);
+}
+
+/* Filters Container */
+.filters {
+  padding: 10px 20px;
+}
+
+/* Category Filter Select (You can style this as needed) */
+.category-filter label,
+.category-filter select {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Tag Filter Checkboxes (You can style this as needed) */
+.tag-filter label {
+  margin-bottom: 5px;
+}
+.tag-filter li {
+  display: inline;
+}
+
+/* Smooth Hover Effect for Checkboxes */
+.tag-filter input[type="checkbox"]:hover + label::before {
+  background-color: #ddd;
+
+}
+
+/* Checkboxes (You can style this as needed) */
+.tag-filter input[type="checkbox"] {
+  margin-right: 5px;
+  cursor: pointer;
+
+}
+
+/* Apply Filter Button */
+
