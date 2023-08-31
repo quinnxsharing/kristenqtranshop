@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/fd112ab5-b9a8-447d-b1f4-8eebc46f5f0e/resourceGroups/testkristenshop2/providers/Microsoft.Web/sites/testkristenshop2",
+    "appService.deploySubpath": "."
+}

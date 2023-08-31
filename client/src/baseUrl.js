@@ -1,3 +1,3 @@
-const baseUrl = "https://kristenqtranshop.azurewebsites.net";
+const baseUrl = "http://localhost:3000";
 
 export default baseUrl;
