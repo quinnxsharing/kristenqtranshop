@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'; // Import React and other necessary dependencies
 import axios from 'axios';
-import baseUrl from '../../baseUrl';
-
+import baseUrl from '../shop/baseUrl';
 const User = () => {
   const [userID, setUserID] = useState(0); 
   const [firstname, setFirstname] = useState(0); 

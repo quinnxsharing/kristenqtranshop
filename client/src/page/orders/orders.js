@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./orders.css";
-import baseUrl from '../../baseUrl';
-
+import baseUrl from '../shop/baseUrl';
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);

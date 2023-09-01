@@ -2,110 +2,104 @@ const express = require('express')
 const app= express()
 const fs = require('fs');
 const cors =require('cors');
-const path = require('path');
 //const { request } = require('http');
-const port = process.env.PORT || 3001;
-
+const path = require('path');
+const { request } = require('http');
+//const { request } = require('http');
+//const port = process.env.PORT || 3001;
+// Load data from JSON file into memory
+const rawData = fs.readFileSync("server/sampledata.json")
+const data = JSON.parse(rawData)
+app.use(cors())
 app.use(express.json())
-app.use(cors());
+app.use(express.static(path.join(__dirname, '..', 'build')));
 
-app.get('/products',(request,response)=> {
-    fs.readFile('./server/sampledata.json', (err, data) => {
-        if (err) throw err;
-        let sampledata = JSON.parse(data);
-        response.json(sampledata.products)
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+// });
+
+app.get('/products',(request,response)=>{
+    response.json(data.products)
+})
+
+app.get('/users',(request,response)=>{
+    response.json(data.users)
+})
+// });
+// app.get('/session',(request,response)=> {
+//     fs.readFile('./server/sampledata.json', (err, data) => {
+//         if (err) throw err;
+//         let sampledata = JSON.parse(data);
+//         response.json(sampledata.session)
+//     });
+app.get('/session',(req,res)=>{
+    res.json(data.session)
+})
+
+app.get('/products/:id', (req, res) => {
+    // Assuming 'data' is an array of products
+    const productId = req.params.id;
+  
+    // Use find method to search for the product with a matching ID
+    const product = data.products.find((product) => {
+      return product.id === productId;
     });
-    console.log('This is anpfter the read call');
-    console.log("products")
-
-});
-// get user 
-app.get('/users',(request,response)=> {
-    fs.readFile('./server/sampledata.json', (err, data) => {
-        if (err) throw err;
-        let sampledata = JSON.parse(data);
-        response.json(sampledata.users)
-    });
-    console.log('This is anpfter the read call');
-    console.log("users")
-
-});
-app.get('/session',(request,response)=> {
-    fs.readFile('./server/sampledata.json', (err, data) => {
-        if (err) throw err;
-        let sampledata = JSON.parse(data);
-        response.json(sampledata.session)
-    });
-
-});
-app.get('/products/:id', (resquest, response)=>{
-    fs.readFile('./server/sampledata.json',(err,data)=>{
-        if(err) throw err; 
-        let sampledata =JSON.parse(data);
-        let productID= sampledata.products.find((product) =>  {
-            return product.id === resquest.params.id;
-        });
-        response.json(productID);
-    });
-});
-app.get('/users/:id', (request, response)=>{
-    fs.readFile('./server/sampledata.json',(err,data)=>{
-        if(err) throw err; 
-        let sampledata =JSON.parse(data);
-        let userID= sampledata.users.find((user) =>  {
-            return user.id === parseInt(request.params.id);
-        });
-        response.json(userID);
-    });
-});
-
-app.get('/orders', (request, response) => {
-    const userId = parseInt(request.query.user_id); // Use request.query to access query parameters
-
-    // Ensure userId is a valid number
-    if (isNaN(userId)) {
-        response.status(400).json({ error: 'Invalid user_id parameter' });
-        return;
+  
+    if (product) {
+      // Respond with JSON if the product is found
+      res.json(product);
+    } else {
+      // Respond with an error message if the product is not found
+      res.status(404).send("Product not found");
     }
+  });
 
-    fs.readFile('./server/sampledata.json', (err, data) => {
-        if (err) {
-            response.status(500).json({ error: 'Internal Server Error' });
-            return;
-        }
+app.get('/users/:id', (req, res) => {
+  const userID = parseInt(req.params.id);
+  const user = data.users.find((user) => {
+    return user.id === userID;
+  });
 
-        const sampledata = JSON.parse(data);
-
-        const orders = sampledata.orders.filter((order) => {
-            return order.user_id === userId;
-        });
-
-        response.json(orders);
-    });
+  if (user) {
+    // Respond with JSON if the product is found
+    res.json(user);
+  } else {
+    // Respond with an error message if the product is not found
+    res.status(404).send("User not found");
+  }
 });
+app.get('/orders', (request, response) => {
+  const userId = parseInt(request.query.user_id); // Use request.query to access query parameters
+
+  // Ensure userId is a valid number
+  if (isNaN(userId)) {
+      response.status(400).json({ error: 'Invalid user_id parameter' });
+      return;
+  }
+
+  const orders = data.orders.filter((order) => {
+      return order.user_id === userId;
+  });
+
+  if (orders.length > 0) {
+      response.json(orders);
+  } else {
+      response.status(404).json({ error: 'No orders found for the user' });
+  }
+});
+
 
 // GET /categories - get the product category names and a user friendly name for them
 app.get('/categories',(request,response)=> {
-    fs.readFile('./server/sampledata.json', (err, data) => {
-        if (err) throw err;
-        let sampledata = JSON.parse(data);
-        response.json(sampledata.categories)
-    });
-    console.log('This is anpfter the read call');
-    console.log("categories")
+    response.json(data.categories)
 
 });
-// GET /tags - get an array of all tag names used for products
-app.get('/tags',(request,response)=> {
-    fs.readFile('./server/sampledata.json', (err, data) => {
-        if (err) throw err;
-        let sampledata = JSON.parse(data);
-        response.json(sampledata.tags)
-    });
-    console.log('This is anpfter the read call');
-    console.log("tags")
+// // GET /tags - get an array of all tag names used for products
+app.get('/tags',(request,response)=>{
+  response.json(data.tags)
+})
 
-});
+// });
 //POST /orders - create a new order
 
  
@@ -160,11 +154,10 @@ app.post('/orders', (request, response) => {
     return maxOrderId + 1;
   }
   
-app.use(express.static("./client/build"));
-app.get("*", (req,res)=> {
-    res.sendFile(path.resolve(__dirname,"client","build","index.html"));
-});
 
-app.listen(port, () => {
-    console.log(`Server is running on post ${port}`);
-  });
+
+
+const PORT = 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
