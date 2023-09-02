@@ -9,13 +9,14 @@ import axios from "axios";
 import ProductDetail from './page/shop/productdetail';
 import CheckoutComponent from './page/orders/checkout';
 import ProductFilter from './page/shop/productfilter';
+import baseUrl from './page/shop/baseUrl';
 
 function App(props) {
   const [productList, setProductList] = useState([]); 
-  const baseUrl='/products'
+ // const baseUrl='/products'
 
   const fetchProducts=()=>{
-    axios.get(baseUrl).then((response)=>{
+    axios.get(`${baseUrl}/products`).then((response)=>{
       console.log("response:",response.data)
       setProductList(response.data)
     })
